@@ -7,7 +7,32 @@ description: Translate EPUB ebooks to bilingual format (original + translation i
 
 When the user invokes `/translate-ebook`, follow these steps exactly.
 
-## Step 0: Usage Guide
+## Step 0: Check Existing Notes
+
+After parsing `epub_path` from the command, check if a notes file exists:
+```bash
+ls ~/.claude/translation-notes/ 2>/dev/null
+```
+
+Compute the expected notes filename from the epub stem (same logic as review-translation skill). If a matching notes file exists, read it and display:
+
+```
+📋 发现这本书的翻译笔记（上次 review 记录）：
+
+  · 第3章：人名不一致 → --glossary "Elena=叶莲娜"
+  · 第5章：成语太多   → --prompt "避免使用成语，用现代白话文"
+
+是否将以上建议应用到本次翻译？
+1. 应用全部建议
+2. 手动选择
+3. 跳过
+```
+
+If the user chooses 1, automatically merge the suggested parameters into the current command arguments.
+If the user chooses 2, show each suggestion one by one and ask y/n.
+If the user chooses 3 or no notes file exists, continue to the next step.
+
+## Step 0.5: Usage Guide
 
 Ask the user:
 
