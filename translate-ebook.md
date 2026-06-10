@@ -7,6 +7,50 @@ description: Translate EPUB ebooks to bilingual format (original + translation i
 
 When the user invokes `/translate-ebook`, follow these steps exactly.
 
+## Step 0: Usage Guide
+
+Ask the user:
+
+```
+是否查看使用说明？（y/n）
+```
+
+If the user answers `y` or `yes`, display the following, then wait for them to confirm before continuing:
+
+```
+📖 EPUB 双语翻译器 — 使用说明
+
+【引擎对比】
+  claude    — 质量最佳，速度适中，默认使用 haiku 模型（费用较低）
+  deepseek  — 性价比高，翻译前会估算 token 用量和参考费用
+  deepl     — 速度最快，不支持词汇表和文学润色
+  google    — 免费，质量一般，有频率限制
+
+【费用参考（每10万字估算）】
+  claude haiku   ≈ $0.10–0.20
+  deepseek-v4    ≈ $0.05–0.15
+  deepl          按字符计费，免费额度 50 万字/月
+  google         免费
+
+【题材建议】
+  小说/文学     → literary 或对应题材（romance/scifi/mystery/fantasy）
+  历史/政治     → history
+  科普/学术     → science
+  商业/财经     → business
+  心理/自助     → psychology
+  不确定        → general
+
+【实用技巧】
+  · --parallel 3~5   大书加速，推荐云端 API
+  · --refine         文学润色，质量更好但费用翻倍
+  · --glossary       人名/专有名词保持一致
+  · --text-cleanup   OCR 扫描版书籍专用
+
+按回车继续翻译。
+```
+
+If the user answers `n` or skips, proceed immediately to Step 1.
+
 ## Step 1: Parse Arguments
 
 The invocation format is:
