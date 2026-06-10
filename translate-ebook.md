@@ -33,6 +33,30 @@ Extract:
 
 If `epub_path` is not provided or the file does not exist, tell the user and stop.
 
+## Step 1.5: Confirm Genre
+
+If `--genre` was **not** explicitly provided by the user, ask them to choose before proceeding:
+
+```
+请选择书籍题材（直接输入数字）：
+
+1. general   — 通用（默认高质量翻译规则）
+2. history   — 历史政治
+3. scifi     — 科幻
+4. mystery   — 悬疑推理
+5. romance   — 爱情
+6. fantasy   — 奇幻
+7. horror    — 恐怖
+8. literary  — 纯文学
+9. business  — 商业财经
+10. science  — 大众科普
+11. psychology — 心理自助
+```
+
+Wait for the user's input and map the number to the genre name. If the user types the genre name directly, accept that too. Set `genre` to the selected value before continuing.
+
+If `--genre` was already provided, skip this step.
+
 ## Step 2: Install Dependencies
 
 ```bash
