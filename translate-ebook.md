@@ -134,7 +134,29 @@ Stream the output so the user sees progress per chapter.
 
 ## Step 5: Report Result
 
-- On success (exit code 0): show the output file path and summary statistics.
+- On success (exit code 0): show the output file path and summary statistics. Then ask:
+
+  ```
+  翻译已完成。是否删除断点续传缓存？
+  （缓存文件约占几 MB，重启电脑后也会自动清除）
+
+  1. 删除缓存
+  2. 保留缓存（下次重翻同一本书时可断点续传）
+  ```
+
+  If the user chooses 1, compute the cache path:
+  ```python
+  import hashlib
+  key = f"{input_path}:{engine}:{target_lang}"
+  h = hashlib.md5(key.encode()).hexdigest()[:12]
+  cache_path = f"/tmp/epub_translate_{h}.json"
+  ```
+  Then delete it:
+  ```bash
+  rm -f "<cache_path>"
+  ```
+  Confirm: "缓存已删除。"
+
 - On failure: show the error message and suggest a fix.
 
 ## Notes
