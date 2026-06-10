@@ -57,6 +57,34 @@ Wait for the user's input and map the number to the genre name. If the user type
 
 If `--genre` was already provided, skip this step.
 
+## Step 1.6: Confirm Output Path
+
+If `--output` was **not** explicitly provided, show the default output path and ask for confirmation:
+
+```
+输出文件将保存到：
+  <default_output_path>
+
+直接回车确认，或输入新路径：
+```
+
+Wait for input. If the user presses Enter (empty input), keep the default. If they type a path, use that instead.
+
+## Step 1.7: Confirm Cache Behavior
+
+Ask the user whether to use the resume cache:
+
+```
+断点续传缓存：如果之前翻译过这本书，可以从上次中断的地方继续，节省 API 费用。
+
+1. 启用缓存（推荐）— 从断点继续，已翻译章节跳过
+2. 忽略缓存 — 从头重新翻译全部章节
+```
+
+Wait for input (1 or 2). If the user chooses 2, add `--no-cache` to the command.
+
+If `--no-cache` was already provided in the original command, skip this step.
+
 ## Step 2: Install Dependencies
 
 ```bash
