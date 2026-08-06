@@ -158,14 +158,17 @@ def restore_content(text: str, placeholders: dict[str, str]) -> str:
 # DeepSeek token estimation
 # ---------------------------------------------------------------------------
 
-DEEPSEEK_TOKENIZER_PATH = "/Users/csho0o/Downloads/deepseek_v3_tokenizer"
-
-
 def estimate_tokens_deepseek(all_texts: list[str]) -> dict:
+    tokenizer_path = os.environ.get("DEEPSEEK_TOKENIZER_PATH")
+    if not tokenizer_path:
+        return {
+            "available": False,
+            "error": "set DEEPSEEK_TOKENIZER_PATH to a local tokenizer path",
+        }
     try:
         from transformers import AutoTokenizer
         tokenizer = AutoTokenizer.from_pretrained(
-            DEEPSEEK_TOKENIZER_PATH, trust_remote_code=True
+            tokenizer_path, trust_remote_code=True
         )
         total_input = sum(len(tokenizer.encode(t)) for t in all_texts)
         total_output = int(total_input * 1.1)

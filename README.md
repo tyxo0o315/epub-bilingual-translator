@@ -21,13 +21,33 @@ A Claude Code skill that translates EPUB ebooks into bilingual format — origin
 
 | File | Description |
 |------|-------------|
-| `translate-ebook.md` | Claude Code skill definition (invoke with `/translate-ebook`) |
+| `skills/translate-ebook/SKILL.md` | Claude Code skill definition (invoke with `/translate-ebook`) |
+| `skills/review-translation/SKILL.md` | Claude Code skill definition for bilingual translation review |
 | `translate_epub.py` | Python translation core script |
+| `review_epub.py` | Translation review helper |
 
 ## Installation
 
-1. Copy `translate-ebook.md` to `~/.claude/skills/`
-2. Copy `translate_epub.py` to `~/.claude/scripts/`
+### As a local CLI
+
+Requires Python 3.10 or newer.
+
+```bash
+git clone https://github.com/tyxo0o315/epub-bilingual-translator.git
+cd epub-bilingual-translator
+python -m pip install -e .
+```
+
+Optional engines can be installed with extras:
+
+```bash
+python -m pip install -e ".[claude,deepseek]"
+```
+
+### As Claude Code skills
+
+1. Copy `skills/translate-ebook/` and `skills/review-translation/` to `~/.claude/skills/`
+2. Install the Python CLI with `python -m pip install -e .`
 3. Set API keys as needed:
    ```bash
    export ANTHROPIC_API_KEY=sk-ant-...   # for Claude engine
@@ -96,4 +116,13 @@ pip install "googletrans==4.0.0rc1"               # Google only
 Optional (for DeepSeek token estimation):
 ```bash
 pip install transformers
+export DEEPSEEK_TOKENIZER_PATH=/path/to/local/deepseek/tokenizer
 ```
+
+## CI
+
+GitHub Actions installs the package, compiles both Python modules, and verifies the CLI help path without calling paid translation APIs.
+
+## License
+
+MIT.

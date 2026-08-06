@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epub-bilingual-translator"
+version = "0.1.0"
+description = "Translate EPUB ebooks into bilingual original-plus-translation format."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "tyxo0o315" }]
+dependencies = [
+  "beautifulsoup4",
+  "lxml",
+]
+
+[project.optional-dependencies]
+claude = ["anthropic"]
+deepseek = ["openai"]
+deepl = ["deepl"]
+google = ["googletrans==4.0.0rc1"]
+token-estimation = ["transformers"]
+all = ["anthropic", "openai", "deepl", "googletrans==4.0.0rc1", "transformers"]
+
+[project.scripts]
+epub-bilingual-translator = "translate_epub:main"
+
+[tool.setuptools]
+py-modules = ["translate_epub", "review_epub"]
